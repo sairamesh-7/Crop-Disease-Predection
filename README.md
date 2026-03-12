@@ -38,7 +38,8 @@ The application also supports multiple languages (English, Telugu, Hindi) to mak
 | Pillow (PIL)       | Image handling          |
 
 ---
-📂 Project Structure
+# 📂 Project Structure
+
 Crop-Disease-Predection/
 │
 ├── app.py                     # Main Flask application
@@ -73,6 +74,7 @@ Crop-Disease-Predection/
 │   └── thankyou.html
 │
 └── uploads/
+
 📊 Dataset
 
 The dataset used to train the crop disease detection model is available on Kaggle:
@@ -155,4 +157,10 @@ https://github.com/sairamesh-7/Crop-Disease-Predection
 📜 License
 
 This project is developed for educational and research purposes.
+
+
+
+
+
+
 
