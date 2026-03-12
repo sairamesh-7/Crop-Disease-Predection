@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>{{ text.title_upload }}</h2>
+
+<form action="/predict" method="POST" enctype="multipart/form-data">
+
+<div class="upload-box">
+
+<input type="file" name="image" required>
+
+</div>
+
+<br><br>
+
+<button type="submit">
+
+{% if session.get('lang') == 'te' %}
+వ్యాధిని గుర్తించండి
+{% elif session.get('lang') == 'hi' %}
+रोग पहचानें
+{% else %}
+Predict Disease
+{% endif %}
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

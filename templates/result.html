@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<title>{{ text.title_result }}</title>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>{{ text.title_result }}</h2>
+
+<img src="{{ url_for('uploaded_file', filename=image) }}" width="250">
+
+<h3>{{ disease }}</h3>
+
+<p>
+{% if session.get('lang') == 'te' %}
+నమ్మక స్థాయి
+{% elif session.get('lang') == 'hi' %}
+विश्वास स्तर
+{% else %}
+AI Confidence
+{% endif %}
+: {{ confidence }}%
+</p>
+
+<h3>{{ text.solution }}</h3>
+
+<ul style="text-align:left">
+
+{% if disease == "Bacterialblight" %}
+
+{% if session.get('lang') == 'te' %}
+<li>సంఖ్యాబాధిత ఆకులను వెంటనే తొలగించండి</li>
+<li>రోగరహిత విత్తనాలు ఉపయోగించండి</li>
+<li>అధిక నైట్రోజన్ ఎరువులను నివారించండి</li>
+<li>మొక్కల మధ్య సరైన దూరం ఉంచండి</li>
+<li>అవసరమైతే కాపర్ ఆధారిత బాక్టీరీసైడ్ వాడండి</li>
+
+{% elif session.get('lang') == 'hi' %}
+<li>संक्रमित पत्तियों को तुरंत हटा दें</li>
+<li>रोग मुक्त बीजों का उपयोग करें</li>
+<li>अधिक नाइट्रोजन उर्वरक से बचें</li>
+<li>पौधों के बीच उचित दूरी रखें</li>
+<li>जरूरत हो तो कॉपर आधारित बैक्टीरिसाइड का प्रयोग करें</li>
+
+{% else %}
+<li>Remove and destroy infected leaves immediately</li>
+<li>Use certified disease-free seeds</li>
+<li>Avoid excessive nitrogen fertilizer</li>
+<li>Maintain proper plant spacing for airflow</li>
+<li>Apply copper-based bactericide if infection spreads</li>
+{% endif %}
+
+
+{% elif disease == "Brownspot" %}
+
+{% if session.get('lang') == 'te' %}
+<li>మాంకోజెబ్ లేదా క్లోరోథాలోనిల్ ఫంగిసైడ్ వాడండి</li>
+<li>సంఖ్యాబాధిత ఆకులను తొలగించండి</li>
+<li>సమతుల్య ఎరువులతో నేల ఫలదీకరణ మెరుగుపరచండి</li>
+<li>పొలంలో మంచి డ్రైనేజ్ ఉండేలా చూడండి</li>
+
+{% elif session.get('lang') == 'hi' %}
+<li>मैनकोजेब या क्लोरोथालोनिल फंगीसाइड का प्रयोग करें</li>
+<li>संक्रमित पत्तियों को हटा दें</li>
+<li>संतुलित उर्वरकों से मिट्टी की उर्वरता बढ़ाएं</li>
+<li>खेत में उचित जल निकासी रखें</li>
+
+{% else %}
+<li>Apply fungicide such as Mancozeb or Chlorothalonil</li>
+<li>Remove infected leaves from the field</li>
+<li>Improve soil fertility with balanced fertilizers</li>
+<li>Ensure proper drainage in the field</li>
+{% endif %}
+
+
+{% elif disease == "Leafsmut" %}
+
+{% if session.get('lang') == 'te' %}
+<li>సంఖ్యాబాధిత మొక్కలను వెంటనే తొలగించండి</li>
+<li>కార్బెండాజిం ఫంగిసైడ్ వాడండి</li>
+<li>సరైన పంట మార్పిడి పాటించండి</li>
+<li>అధిక తేమ పరిస్థితులను నివారించండి</li>
+
+{% elif session.get('lang') == 'hi' %}
+<li>संक्रमित पौधों को तुरंत हटा दें</li>
+<li>कार्बेन्डाजिम फंगीसाइड का प्रयोग करें</li>
+<li>उचित फसल चक्र बनाए रखें</li>
+<li>अधिक नमी से बचें</li>
+
+{% else %}
+<li>Remove infected plants immediately</li>
+<li>Apply Carbendazim fungicide</li>
+<li>Maintain proper crop rotation</li>
+<li>Avoid high humidity conditions</li>
+{% endif %}
+
+{% else %}
+
+<li>No specific solution available.</li>
+<li>Please consult an agricultural expert.</li>
+
+{% endif %}
+
+</ul>
+
+<br>
+
+<a href="/feedback">
+<button>
+
+{% if session.get('lang') == 'te' %}
+తర్వాత
+{% elif session.get('lang') == 'hi' %}
+अगला
+{% else %}
+Next
+{% endif %}
+
+</button>
+</a>
+
+</div>
+
+</body>
+</html>
