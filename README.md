@@ -1,46 +1,44 @@
-🌿 Crop-Disease-Predection
+# 🌿 Crop Disease Prediction
 
-Crop-Disease-Predection is a web-based application that uses Artificial Intelligence and Deep Learning to detect crop diseases from leaf images.
-Farmers or users can upload crop leaf images and the system predicts the type of disease and provides suggested solutions.
+A web-based application that uses **Artificial Intelligence** and **Deep Learning** to detect crop diseases from leaf images. Farmers and users can upload crop leaf images, and the system predicts the type of disease along with suggested solutions.
 
-The application also supports multiple languages (English, Telugu, Hindi) to make it easier for farmers to understand the results.
-
-🚀 Features
-
-👤 User Registration and Login
-
-🌍 Multi-language support (English, Telugu, Hindi)
-
-📷 Upload crop leaf images
-
-🤖 AI-based disease detection using a trained model
-
-📊 Prediction confidence score
-
-💡 Suggested solutions for detected diseases
-
-💬 Feedback system
-
-🗄 SQLite database for storing users
-
-# 🛠 Technologies Used
-
-| Technology         | Purpose                 |
-| ------------------ | ----------------------- |
-| Python             | Backend programming     |
-| Flask              | Web framework           |
-| TensorFlow / Keras | Deep learning model     |
-| HTML               | Frontend structure      |
-| CSS                | User interface styling  |
-| JavaScript         | Client-side interaction |
-| SQLite             | Database                |
-| NumPy              | Image processing        |
-| Pillow (PIL)       | Image handling          |
+> Supports multiple languages — **English**, **Telugu**, and **Hindi** — to make results accessible to farmers across regions.
 
 ---
-# 📂 Project Structure
 
-Crop-Disease-Predection/
+## 🚀 Features
+
+- 👤 User Registration and Login
+- 🌍 Multi-language support (English, Telugu, Hindi)
+- 📷 Upload crop leaf images
+- 🤖 AI-based disease detection using a trained CNN model
+- 📊 Prediction confidence score
+- 💡 Suggested solutions for detected diseases
+- 💬 Feedback system
+- 🗄️ SQLite database for storing user data
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology          | Purpose                  |
+| ------------------- | ------------------------ |
+| Python              | Backend programming      |
+| Flask               | Web framework            |
+| TensorFlow / Keras  | Deep learning model      |
+| HTML                | Frontend structure       |
+| CSS                 | User interface styling   |
+| JavaScript          | Client-side interaction  |
+| SQLite              | Database                 |
+| NumPy               | Image processing         |
+| Pillow (PIL)        | Image handling           |
+
+---
+
+## 📂 Project Structure
+
+```
+Crop-Disease-Prediction/
 │
 ├── app.py                     # Main Flask application
 ├── requirements.txt           # Python dependencies
@@ -57,9 +55,7 @@ Crop-Disease-Predection/
 ├── static/
 │   ├── css/
 │   │   └── style.css
-│   │
 │   ├── images/
-│   │
 │   └── js/
 │       └── script.js
 │
@@ -74,93 +70,100 @@ Crop-Disease-Predection/
 │   └── thankyou.html
 │
 └── uploads/
+```
 
-📊 Dataset
+---
 
-The dataset used to train the crop disease detection model is available on Kaggle:
+## 📊 Dataset
 
-Rice Plant Diseases Dataset
-https://www.kaggle.com/datasets/jay7080dev/rice-plant-diseases-dataset
+The model was trained using the **Rice Plant Diseases Dataset** available on Kaggle:
 
-The dataset contains images of rice plant leaves categorized into different disease classes used to train the deep learning model.
+🔗 [Rice Plant Diseases Dataset](https://www.kaggle.com/datasets/jay7080dev/rice-plant-diseases-dataset)
 
-⚙️ Installation
-Clone the repository
+The dataset contains labeled images of rice plant leaves across multiple disease categories.
+
+---
+
+## ⚙️ Installation
+
+**1. Clone the repository**
+```bash
 git clone https://github.com/sairamesh-7/Crop-Disease-Predection.git
-Navigate to the project folder
+```
+
+**2. Navigate to the project folder**
+```bash
 cd Crop-Disease-Predection
-Install dependencies
+```
+
+**3. Install dependencies**
+```bash
 pip install -r requirements.txt
-▶️ Run the Application
+```
 
-Run the Flask application:
+---
 
+## ▶️ Run the Application
+
+```bash
 python app.py
+```
 
-Open your browser and visit:
+Then open your browser and visit:
 
+```
 http://127.0.0.1:5000/
-📸 How the System Works
+```
 
-User registers or logs into the system.
+---
 
-User selects preferred language.
+## 📸 How It Works
 
-User uploads a crop leaf image.
+1. User **registers** or **logs in** to the system
+2. User selects their **preferred language**
+3. User **uploads** a crop leaf image
+4. The **AI model** processes the image
+5. The system **predicts** the crop disease
+6. Results display the **disease name**, **confidence score**, and **suggested solutions**
+7. User can optionally **submit feedback**
 
-The AI model processes the image.
+---
 
-The system predicts the crop disease.
+## 🧠 AI Model
 
-The system displays disease name, confidence score, and solutions.
+The system uses a **Convolutional Neural Network (CNN)** trained on the rice plant disease dataset.
 
-User can submit feedback.
+**Model file:** `model/crop_model.h5`
 
-🧠 AI Model
+**Diseases currently supported:**
 
-The system uses a Convolutional Neural Network (CNN) trained on crop disease datasets.
+| Disease          |
+| ---------------- |
+| Bacterial Blight |
+| Brown Spot       |
+| Leaf Smut        |
 
-Model file location:
+---
 
-model/crop_model.h5
+## 🔮 Future Improvements
 
-Diseases currently supported:
+- [ ] Add more crop disease datasets
+- [ ] Improve prediction accuracy
+- [ ] Support additional languages
+- [ ] Mobile application version
+- [ ] Real-time camera-based disease detection
 
-Bacterial Blight
+---
 
-Brown Spot
+## 👨‍💻 Author
 
-Leaf Smut
+**Pragada Sai Ramesh**
 
-🔮 Future Improvements
+- 🐙 GitHub: [@sairamesh-7](https://github.com/sairamesh-7)
+- 📁 Repository: [Crop-Disease-Predection](https://github.com/sairamesh-7/Crop-Disease-Predection)
 
-Add more crop disease datasets
+---
 
-Improve prediction accuracy
+## 📜 License
 
-Add more language support
-
-Mobile application version
-
-Real-time camera disease detection
-
-👨‍💻 Author
-
-Pragada Sai Ramesh
-
-GitHub Profile:
-https://github.com/sairamesh-7
-
-Project Repository:
-https://github.com/sairamesh-7/Crop-Disease-Predection
-
-📜 License
-
-This project is developed for educational and research purposes.
-
-
-
-
-
-
-
+This project is developed for **educational and research purposes**.
