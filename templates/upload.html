@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Crop AI - Upload</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+/* 🔥 LOADER OVERLAY */
+.loader-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    visibility:hidden;
+    opacity:0;
+    transition:0.3s;
+}
+.loader-overlay.active{
+    visibility:visible;
+    opacity:1;
+}
+
+.loader-box{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0px 10px 30px rgba(0,0,0,0.2);
+}
+
+.spinner{
+    width:50px;
+    height:50px;
+    border:5px solid #eee;
+    border-top:5px solid #2ecc71;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+    margin:auto;
+}
+
+.loader-text{
+    margin-top:15px;
+    font-size:14px;
+    color:#555;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+/* 🌐 LANGUAGE */
+.lang-select{
+    padding:6px 10px;
+    border-radius:6px;
+    border:none;
+    font-size:13px;
+    cursor:pointer;
+    background:white;
+    color:#2ecc71;
+    font-weight:500;
+    outline:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- 🔥 NAVBAR -->
+<div class="navbar">
+
+    <div class="nav-left">
+         Crop AI
+    </div>
+
+    <div class="nav-right">
+
+        <span>{{ session.get('user') }}</span>
+
+        <!-- ✅ FIXED LANGUAGE DROPDOWN -->
+        <select onchange="location = this.value;" class="lang-select">
+            <option value="/set_language/en" {% if session.get('lang','en')=='en' %}selected{% endif %}>English</option>
+            <option value="/set_language/te" {% if session.get('lang')=='te' %}selected{% endif %}>తెలుగు</option>
+            <option value="/set_language/hi" {% if session.get('lang')=='hi' %}selected{% endif %}>हिन्दी</option>
+        </select>
+
+        <a href="/dashboard" class="nav-btn">
+            {{ text.get('dashboard','Dashboard') }}
+        </a>
+
+        <a href="/profile" class="nav-btn">
+            {{ text.get('profile','Profile') }}
+        </a>
+
+        <a href="/logout" class="nav-btn">
+            {{ text.get('logout','Logout') }}
+        </a>
+
+    </div>
+
+</div>
+
+<!-- 🔥 MAIN CONTENT -->
+<div class="container">
+
+    <div class="card">
+
+        <h2>{{ text.get('title_upload','Upload Image') }}</h2>
+
+        <form id="uploadForm" action="/predict" method="POST" enctype="multipart/form-data">
+
+            <label class="upload-box" id="dropArea">
+
+                <input type="file" name="image" id="fileInput" required>
+
+                <div class="upload-content">
+
+                    <p class="upload-text">
+                        {{ text.get('drag_drop','Drag & Drop Image Here') }}
+                    </p>
+
+                    <p class="upload-sub">
+                        {{ text.get('click_browse','Click to Browse') }} (PNG / JPG / JPEG)
+                    </p>
+
+                </div>
+
+                <p id="fileName" class="file-name"></p>
+                <img id="preview" class="preview-img">
+
+            </label>
+
+            <br>
+
+            <button type="submit" class="main-btn">
+                {{ text.get('predict','Predict Disease') }}
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- 🔥 LOADER -->
+<div id="loader" class="loader-overlay">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <p class="loader-text">Analyzing image... Please wait</p>
+    </div>
+</div>
+
+<!-- 🔥 SCRIPT -->
+<script>
+const dropArea = document.getElementById("dropArea");
+const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+const fileName = document.getElementById("fileName");
+const form = document.getElementById("uploadForm");
+const loader = document.getElementById("loader");
+
+fileInput.addEventListener("change", handleFile);
+
+dropArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropArea.classList.add("drag-active");
+});
+
+dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("drag-active");
+});
+
+dropArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    fileInput.files = e.dataTransfer.files;
+    dropArea.classList.remove("drag-active");
+    handleFile();
+});
+
+function handleFile(){
+    const file = fileInput.files[0];
+
+    if(file){
+        fileName.innerText = "Selected: " + file.name;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        }
+
+        reader.readAsDataURL(file);
+    }
+}
+
+form.addEventListener("submit", function(){
+    loader.classList.add("active");
+});
+</script>
+
+</body>
+</html>

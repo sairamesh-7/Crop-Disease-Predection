@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Login</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<script>
+setTimeout(function(){
+    document.getElementById("loginContainer").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+},2000);
+</script>
+
+<style>
+#loginContainer{ display:none; }
+
+#loading{
+    text-align:center;
+    margin-top:200px;
+    font-size:22px;
+    color:#2e7d32;
+}
+
+.container{ text-align:center; }
+
+.forgot-link{
+    display:block;
+    text-align:right;
+    margin-top:5px;
+    font-size:14px;
+    color:#2e7d32;
+    text-decoration:none;
+}
+
+.btn-home{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 15px;
+    background:#2ecc71;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loading">
+    <h2>🌱 Crop Disease Detection System</h2>
+    <p>Loading... Please wait</p>
+</div>
+
+<!-- LOGIN -->
+<div class="container" id="loginContainer">
+
+    <div class="card">
+
+        <h2>Login</h2>
+
+        <!-- ✅ FIXED -->
+        <form action="/login_user" method="POST">
+
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <br><br>
+
+            <input type="password" name="password" placeholder="Enter Password" required>
+
+            <a href="/forgot_password" class="forgot-link">Forgot Password?</a>
+
+            <br><br>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <br>
+
+        <a href="/register" class="btn-home">Create New Account</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{{ text.dashboard }}</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+/* CONTAINER */
+.container{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+/* TABLE */
+.table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0px 4px 15px rgba(0,0,0,0.08);
+}
+
+.table th, .table td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:center;
+}
+
+.table th{
+    background:#2ecc71;
+    color:white;
+    font-weight:600;
+}
+
+/* IMAGE */
+img{
+    width:70px;
+    border-radius:8px;
+}
+
+/* SECTION */
+.section{
+    margin-top:30px;
+}
+
+/* FEEDBACK CARD */
+.feedback-card{
+    background:#f9fff9;
+    border-left:5px solid #2ecc71;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    text-align:left;
+}
+
+/* 🌐 LANGUAGE */
+.lang-select{
+    padding:6px 10px;
+    border-radius:6px;
+    border:none;
+    font-size:13px;
+    cursor:pointer;
+    background:white;
+    color:#2ecc71;
+    font-weight:500;
+    outline:none;
+}
+
+/* BUTTON */
+.main-btn{
+    padding:12px 20px;
+    background:#2ecc71;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.main-btn:hover{
+    background:#27ae60;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- 🔥 NAVBAR -->
+<div class="navbar">
+
+    <div class="nav-left">
+         Crop
+    </div>
+
+    <div class="nav-right">
+
+        <span>{{ session.get('user') }}</span>
+
+        <!-- 🌐 LANGUAGE -->
+        <select onchange="location = this.value;" class="lang-select">
+            <option value="/set_language/en" {% if session.get('lang','en')=='en' %}selected{% endif %}>English</option>
+            <option value="/set_language/te" {% if session.get('lang')=='te' %}selected{% endif %}>తెలుగు</option>
+            <option value="/set_language/hi" {% if session.get('lang')=='hi' %}selected{% endif %}>हिन्दी</option>
+        </select>
+
+        <a href="/upload" class="nav-btn">
+            {{ text.get('title_upload','Upload') }}
+        </a>
+
+        <a href="/logout" class="nav-btn">
+            {{ text.get('logout','Logout') }}
+        </a>
+
+    </div>
+
+</div>
+
+<!-- 🔥 MAIN -->
+<div class="container">
+
+<h2>{{ text.dashboard }}</h2>
+
+<!-- 🔥 PREDICTIONS -->
+<div class="section">
+
+<h3>📊 {{ text.get('title_result','Prediction History') }}</h3>
+
+{% if data %}
+<table class="table">
+
+<tr>
+    <th>{{ text.get('image','Image') }}</th>
+    <th>{{ text.get('disease','Disease') }}</th>
+    <th>{{ text.get('confidence','Confidence') }}</th>
+    <th>{{ text.get('date','Date') }}</th>
+</tr>
+
+{% for d in data %}
+<tr>
+
+<td>
+    <img src="{{ url_for('uploaded_file', filename=d.image) }}">
+</td>
+
+<!-- ✅ TRANSLATED DISEASE -->
+<td>
+    {{
+        {
+            "Leafsmut": {"en":"Leaf Smut","te":"ఆకు స్మట్","hi":"पत्ती स्मट"},
+            "Bacterialblight": {"en":"Bacterial Blight","te":"బ్యాక్టీరియా బ్లైట్","hi":"बैक्टीरियल ब्लाइट"},
+            "Brownspot": {"en":"Brown Spot","te":"బ్రౌన్ స్పాట్","hi":"ब्राउन स्पॉट"}
+        }[d.disease][session.get('lang','en')]
+        if d.disease in ["Leafsmut","Bacterialblight","Brownspot"]
+        else d.disease
+    }}
+</td>
+
+<td>{{ d.confidence }}%</td>
+<td>{{ d.date }}</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+{% else %}
+<p>No predictions yet.</p>
+{% endif %}
+
+</div>
+
+<!-- ⭐ FEEDBACK -->
+<div class="section">
+
+<h3>⭐ {{ text.get('feedback','Feedback') }}</h3>
+
+{% if feedbacks %}
+    {% for f in feedbacks %}
+        <div class="feedback-card">
+            <b>{{ f.rating }} ⭐</b><br>
+            {{ f.comment }}<br>
+            <small>{{ f.date }}</small>
+        </div>
+    {% endfor %}
+{% else %}
+<p>No feedback yet.</p>
+{% endif %}
+
+</div>
+
+<br>
+
+<!-- 🔙 BACK -->
+<a href="/upload">
+    <button class="main-btn">
+        ← {{ text.get('title_upload','Back') }}
+    </button>
+</a>
+
+</div>
+
+</body>
+</html>

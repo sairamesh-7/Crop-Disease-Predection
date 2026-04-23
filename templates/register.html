@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Create Account</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+.password-rules {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.password-rules ul {
+    list-style: none;
+    padding: 0;
+}
+
+.password-rules li {
+    margin: 5px 0;
+    color: red;
+}
+
+.password-rules li.valid {
+    color: green;
+}
+
+.main-btn {
+    padding: 10px 15px;
+    background: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.main-btn:hover {
+    background: #27ae60;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Create Account</h2>
+
+<!-- ✅ FIXED ACTION -->
+<form action="{{ url_for('register') }}" method="POST">
+
+<input type="text" name="name" placeholder="Full Name" required>
+<br><br>
+
+<input type="email" name="email" placeholder="Email" required>
+<br><br>
+
+<input type="text" name="phone" placeholder="Phone" required>
+<br><br>
+
+<!-- PASSWORD -->
+<input type="password" id="password" name="password" placeholder="Password" required>
+
+<!-- PASSWORD RULES -->
+<div class="password-rules">
+    <p><b>Your password must include:</b></p>
+    <ul>
+        <li id="length">❌ At least 8 characters</li>
+        <li id="upper">❌ One uppercase letter</li>
+        <li id="lower">❌ One lowercase letter</li>
+        <li id="number">❌ One number</li>
+        <li id="special">❌ One special character</li>
+    </ul>
+</div>
+
+<br>
+
+<button type="submit" class="main-btn">Create Account</button>
+
+</form>
+
+<br>
+
+<a href="/login">
+    <button type="button" class="main-btn">Back to Login</button>
+</a>
+
+</div>
+
+<!-- JS -->
+<script>
+const password = document.getElementById("password");
+
+password.addEventListener("keyup", function() {
+    const val = password.value;
+
+    updateRule("length", val.length >= 8);
+    updateRule("upper", /[A-Z]/.test(val));
+    updateRule("lower", /[a-z]/.test(val));
+    updateRule("number", /[0-9]/.test(val));
+    updateRule("special", /[^A-Za-z0-9]/.test(val));
+});
+
+function updateRule(id, condition) {
+    const el = document.getElementById(id);
+
+    if (condition) {
+        el.classList.add("valid");
+        el.innerHTML = "✔ " + el.innerText.replace(/^❌|✔/, "").trim();
+    } else {
+        el.classList.remove("valid");
+        el.innerHTML = "❌ " + el.innerText.replace(/^❌|✔/, "").trim();
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<title>{{ text.title_result }}</title>
+
+<style>
+
+/* 🔥 MAIN CONTAINER */
+.container{
+    max-width:700px;
+    margin:auto;
+    text-align:center;
+}
+
+/* 🔥 CARD STYLE */
+.result-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* 🔥 IMAGE */
+.result-img{
+    width:250px;
+    border-radius:12px;
+    margin:15px 0;
+}
+
+/* 🔥 TITLE */
+h2{
+    color:#2ecc71;
+}
+
+/* 🔥 DISEASE NAME */
+.disease-name{
+    font-size:22px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+/* 🔥 CONFIDENCE */
+.confidence{
+    color:#555;
+    margin:10px 0;
+}
+
+/* 🔥 SOLUTION */
+.solution{
+    text-align:left;
+    margin-top:15px;
+}
+
+.solution h3{
+    color:#27ae60;
+}
+
+.solution ul{
+    margin-top:10px;
+    padding-left:20px;
+}
+
+.solution li{
+    margin-bottom:6px;
+}
+
+/* 🔥 BUTTON */
+.main-btn{
+    width:100%;
+    padding:12px;
+    background:#2ecc71;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+.main-btn:hover{
+    background:#27ae60;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="result-card">
+
+        <!-- 🔥 TITLE -->
+        <h2>{{ text.title_result }}</h2>
+
+        <!-- 🔥 IMAGE -->
+        <img src="{{ url_for('uploaded_file', filename=image) }}" class="result-img">
+
+        <!-- 🔥 DISEASE -->
+        <div class="disease-name">
+            {{ disease_name if disease_name else disease }}
+        </div>
+
+        <!-- 🔥 CONFIDENCE -->
+        <div class="confidence">
+            {{ text.confidence }} : {{ confidence }}%
+        </div>
+
+        <!-- 🔥 SOLUTION -->
+        <div class="solution">
+
+            <h3>{{ text.solution_title }}</h3>
+
+            <ul>
+
+            {% if disease == "Bacterialblight" %}
+
+                {% if session.get('lang') == 'te' %}
+                    <li>సంఖ్యాబాధిత ఆకులను వెంటనే తొలగించండి</li>
+                    <li>రోగరహిత విత్తనాలు ఉపయోగించండి</li>
+                    <li>అధిక నైట్రోజన్ ఎరువులను నివారించండి</li>
+                    <li>మొక్కల మధ్య సరైన దూరం ఉంచండి</li>
+                    <li>అవసరమైతే కాపర్ ఆధారిత బాక్టీరీసైడ్ వాడండి</li>
+
+                {% elif session.get('lang') == 'hi' %}
+                    <li>संक्रमित पत्तियों को तुरंत हटा दें</li>
+                    <li>रोग मुक्त बीजों का उपयोग करें</li>
+                    <li>अधिक नाइट्रोजन उर्वरक से बचें</li>
+                    <li>पौधों के बीच उचित दूरी रखें</li>
+                    <li>जरूरत हो तो कॉपर आधारित बैक्टीरिसाइड का प्रयोग करें</li>
+
+                {% else %}
+                    <li>Remove and destroy infected leaves immediately</li>
+                    <li>Use certified disease-free seeds</li>
+                    <li>Avoid excessive nitrogen fertilizer</li>
+                    <li>Maintain proper plant spacing</li>
+                    <li>Apply copper-based bactericide if needed</li>
+                {% endif %}
+
+            {% elif disease == "Brownspot" %}
+
+                {% if session.get('lang') == 'te' %}
+                    <li>మాంకోజెబ్ లేదా క్లోరోథాలోనిల్ ఫంగిసైడ్ వాడండి</li>
+                    <li>సంఖ్యాబాధిత ఆకులను తొలగించండి</li>
+                    <li>సమతుల్య ఎరువులతో నేల మెరుగుపరచండి</li>
+                    <li>మంచి డ్రైనేజ్ ఉండేలా చూడండి</li>
+
+                {% elif session.get('lang') == 'hi' %}
+                    <li>मैनकोजेब या क्लोरोथालोनिल फंगीसाइड का प्रयोग करें</li>
+                    <li>संक्रमित पत्तियों को हटा दें</li>
+                    <li>मिट्टी की उर्वरता बढ़ाएं</li>
+                    <li>जल निकासी ठीक रखें</li>
+
+                {% else %}
+                    <li>Apply Mancozeb or Chlorothalonil fungicide</li>
+                    <li>Remove infected leaves</li>
+                    <li>Improve soil fertility</li>
+                    <li>Ensure proper drainage</li>
+                {% endif %}
+
+            {% elif disease == "Leafsmut" %}
+
+                {% if session.get('lang') == 'te' %}
+                    <li>సంఖ్యాబాధిత మొక్కలను తొలగించండి</li>
+                    <li>కార్బెండాజిం ఫంగిసైడ్ వాడండి</li>
+                    <li>పంట మార్పిడి పాటించండి</li>
+                    <li>అధిక తేమ నివారించండి</li>
+
+                {% elif session.get('lang') == 'hi' %}
+                    <li>संक्रमित पौधों को हटा दें</li>
+                    <li>कार्बेन्डाजिम फंगीसाइड का उपयोग करें</li>
+                    <li>फसल चक्र बनाए रखें</li>
+                    <li>अधिक नमी से बचें</li>
+
+                {% else %}
+                    <li>Remove infected plants</li>
+                    <li>Apply Carbendazim fungicide</li>
+                    <li>Maintain crop rotation</li>
+                    <li>Avoid high humidity</li>
+                {% endif %}
+
+            {% else %}
+
+                <li style="color:red;">No solution available</li>
+
+            {% endif %}
+
+            </ul>
+
+        </div>
+
+        <!-- 🔥 BUTTON -->
+        <a href="/feedback">
+            <button class="main-btn">
+                {% if session.get('lang') == 'te' %}
+                    తర్వాత
+                {% elif session.get('lang') == 'hi' %}
+                    अगला
+                {% else %}
+                    Next
+                {% endif %}
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
